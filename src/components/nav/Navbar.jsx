@@ -1,5 +1,5 @@
 // src/components/Navbar.jsx
-import React from "react";
+import React, { useState } from "react";
 import { useXP } from "../../pages/Home/XpContent"; // ← adjust path if your context lives elsewhere
 import { Link } from "react-router-dom";
 import {
@@ -8,9 +8,12 @@ import {
     FaGamepad,
     FaUsers,
     FaUserAlt,
+    FaTimes,
+    FaBars,
 } from "react-icons/fa";
 
 const NarutoRainNavbar = () => {
+    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
     // only read values from context here — do NOT call addXP in the navbar
     const {
         level = 1,
@@ -19,6 +22,10 @@ const NarutoRainNavbar = () => {
         xpGain = 0,
         showXPGain = false,
     } = useXP();
+
+    const toggleMobileMenu = () => {
+        setMobileMenuOpen(!isMobileMenuOpen);
+    };
 
     const xpPercent = Math.min((xp / xpForNextLevel) * 100, 100);
 
@@ -52,9 +59,9 @@ const NarutoRainNavbar = () => {
 
             {/* Navbar */}
             <header className="z-10 relative bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] border-b border-red-600 shadow-lg backdrop-blur-md">
-                <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-center font-semibold text-white relative">
+                <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between font-semibold text-white relative">
                     {/* Logo */}
-                    <div className="absolute left-6 flex items-center gap-3">
+                    <div className="flex items-center gap-3">
                         <span className="text-red-400 text-2xl tracking-widest font-bold drop-shadow">
                             🍥OTAKUBITES
                         </span>
@@ -75,7 +82,7 @@ const NarutoRainNavbar = () => {
                     </ul>
 
                     {/* Profile / XP */}
-                    <div className="absolute right-6 flex items-center gap-4 text-xs">
+                    <div className="flex items-center gap-4 text-xs">
                         <div className="hidden md:block text-right">
                             <div className="flex items-center gap-2">
                                 <FaUserAlt className="text-red-300 text-lg" />
@@ -97,10 +104,35 @@ const NarutoRainNavbar = () => {
                             </div>
                         )}
 
-                        {/* mobile menu placeholder */}
-                        <button className="md:hidden text-2xl text-white">☰</button>
+                        {/* Mobile Menu Button */}
+                        <button
+                            className="md:hidden text-2xl text-white z-50"
+                            onClick={toggleMobileMenu}
+                        >
+                            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+                        </button>
                     </div>
                 </nav>
+                {/* Mobile Menu */}
+                <div
+                    className={`md:hidden ${
+                        isMobileMenuOpen ? "block" : "hidden"
+                    } bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] absolute top-full left-0 w-full z-40`}
+                >
+                    <ul className="flex flex-col items-center space-y-4 py-4 text-sm uppercase tracking-wider">
+                        {navLinks.map((link) => (
+                            <li key={link.path}>
+                                <Link
+                                    to={link.path}
+                                    className="flex items-center gap-2 hover:text-red-400 transition duration-300"
+                                    onClick={() => setMobileMenuOpen(false)} // Close menu on link click
+                                >
+                                    {link.icon} {link.label}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </header>
         </div>
     );
