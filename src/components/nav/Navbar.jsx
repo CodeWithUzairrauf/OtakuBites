@@ -111,7 +111,7 @@ const NarutoRainNavbar = () => {
                             className="md:hidden text-2xl text-white z-50"
                             onClick={toggleMobileMenu}
                         >
-                            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+                            <FaBars />
                         </button>
                     </div>
                 </nav>
@@ -123,6 +123,12 @@ const NarutoRainNavbar = () => {
                     isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
                 }`}
             >
+                <button
+                    className="absolute top-6 right-6 text-2xl text-white z-50"
+                    onClick={toggleMobileMenu}
+                >
+                    <FaTimes />
+                </button>
                 <ul className="flex flex-col items-center space-y-8 text-lg uppercase tracking-wider">
                     {navLinks.map((link) => (
                         <li key={link.path}>
