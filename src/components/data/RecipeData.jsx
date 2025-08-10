@@ -1,7 +1,6 @@
 import React from 'react'
-import { GiNoodles, GiRiceCooker, GiFriedFish, GiSushis, GiHotMeal, GiCakeSlice, GiChopsticks } from "react-icons/gi";
-import { FaBowlRice, FaFish } from "react-icons/fa6";
-import { TbMeat } from "react-icons/tb";
+import { GiNoodles, GiSushis, GiMeat, GiChopsticks } from "react-icons/gi";
+import { FaBowlRice, FaBoxOpen, FaFish } from "react-icons/fa6";
 
 export const recipeData = [
     {
@@ -30,7 +29,7 @@ export const recipeData = [
     {
         id: "Omurice",
         name: "Omurice",
-        icon: <FaBowlRice />,
+        icon: <FaBoxOpen />,
         desc: "A fluffy omelet over ketchup fried rice – a comfort food favorite.",
         Ingredients: [
             "Cooked rice",
@@ -51,7 +50,7 @@ export const recipeData = [
     {
         id: "Takoyaki",
         name: "Takoyaki",
-        icon: <FaFish />,
+        icon: <GiMeat />,
         desc: "Crispy outside, creamy inside – the famous octopus balls from Osaka.",
         Ingredients: [
             "Takoyaki batter mix",
@@ -119,7 +118,7 @@ export const recipeData = [
     {
         id: "Onigiri",
         name: "Onigiri",
-        icon: <GiRiceCooker />,
+        icon: <FaBowlRice />,
         desc: "Rice ball like in One Piece.",
         Ingredients: [
             "Cooked Japanese rice",
@@ -134,82 +133,4 @@ export const recipeData = [
             "Serve fresh or pack for later."
         ]
     },
-    {
-        id: "Tonkatsu Curry",
-        name: "Tonkatsu Curry",
-        icon: <TbMeat />,
-        desc: "Hearty curry rice like the one served in many anime school cafeterias.",
-        Ingredients: [
-            "Pork cutlet (breaded)",
-            "Japanese curry roux",
-            "Onion (sliced)",
-            "Carrots (chopped)",
-            "Potatoes (chopped)",
-            "Cooked rice",
-            "Oil for frying"
-        ],
-        Instructions: [
-            "Fry breaded pork cutlet until golden brown.",
-            "In a pot, sauté onion, carrots, and potatoes.",
-            "Add water and curry roux, simmer until thick.",
-            "Serve curry over rice and place cutlet on top."
-        ]
-    },
-    {
-        id: "Matcha Parfait",
-        name: "Matcha Parfait",
-        icon: <GiCakeSlice />,
-        desc: "A green tea dessert often enjoyed by anime characters during summer festival scenes.",
-        Ingredients: [
-            "Matcha ice cream",
-            "Whipped cream",
-            "Mochi pieces",
-            "Sweet red bean paste (anko)",
-            "Cornflakes or granola",
-            "Matcha powder for dusting"
-        ],
-        Instructions: [
-            "Layer granola, whipped cream, and red bean paste in a glass.",
-            "Add scoops of matcha ice cream.",
-            "Top with mochi and dust with matcha powder."
-        ]
-    },
-    {
-        id: "Okonomiyaki",
-        name: "Okonomiyaki",
-        icon: <GiHotMeal />,
-        desc: "Hiroshima-style savory pancake often eaten at anime street festivals.",
-        Ingredients: [
-            "Cabbage (shredded)",
-            "All-purpose flour",
-            "Eggs",
-            "Water or dashi stock",
-            "Pork belly slices",
-            "Okonomiyaki sauce",
-            "Kewpie mayo",
-            "Bonito flakes"
-        ],
-        Instructions: [
-            "Mix flour, eggs, water, and cabbage into a batter.",
-            "Heat a pan and spread batter into a round shape.",
-            "Add pork slices on top, flip until cooked through.",
-            "Drizzle with okonomiyaki sauce, mayo, and bonito flakes."
-        ]
-    },
-    {
-        id: "Taiyaki",
-        name: "Taiyaki",
-        icon: <GiFriedFish />,
-        desc: "Fish-shaped sweet cake eaten at anime street fairs.",
-        Ingredients: [
-            "Taiyaki batter mix",
-            "Sweet red bean paste (anko)",
-            "Oil for greasing the mold"
-        ],
-        Instructions: [
-            "Heat and grease a taiyaki mold.",
-            "Pour batter, add bean paste filling, and cover with more batter.",
-            "Cook until golden brown and flip halfway."
-        ]
-    }
 ];
