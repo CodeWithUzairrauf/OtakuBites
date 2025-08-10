@@ -1,0 +1,48 @@
+@keyframes floatXP {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+}
+
+.animate-float-xp {
+  animation: floatXP 1.2s ease-out forwards;
+}
+
+@keyframes flashLevel {
+
+  0%,
+  100% {
+    color: white;
+  }
+
+  50% {
+    color: #f87171;
+  }
+}
+
+.animate-flash-level {
+  animation: flashLevel 1s ease-in-out 1;
+}
+
+@keyframes narutoFall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.animate-naruto-fall {
+  animation-name: narutoFall;
+  animation-timing-function: infinite;
+}
