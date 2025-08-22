@@ -5,7 +5,6 @@ import { GiChopsticks, GiNoodles, GiSushis } from 'react-icons/gi';
 import { GiMeat } from "react-icons/gi";
 import { FaBoxOpen } from 'react-icons/fa';
 import { FaBowlRice } from "react-icons/fa6";
-import { title } from 'framer-motion/client';
 
 const recipes = [
   {
@@ -54,7 +53,7 @@ const Recipes = () => {
       </motion.h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
-        {recipes.map(({ id, title, description, icon, link }) => (
+        {recipes.map(({ id, title, description, icon }) => (
           <motion.div
             key={id}
             className="bg-zinc-900 border border-red-400 rounded-xl p-6"

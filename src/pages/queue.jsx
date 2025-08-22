@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useXP } from "../pages/Home/XpContent"; // Adjust path as needed
 import { motion, AnimatePresence } from "framer-motion";
 import { FaPlusCircle } from "react-icons/fa";
 
@@ -8,19 +7,10 @@ const Queue = () => {
   const [showModal, setShowModal] = useState(false);
   const [newAnime, setNewAnime] = useState({ title: '', description: '', image: '' });
 
-  const { addXP } = useXP();
-
-  // Handle form input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewAnime((prev) => ({ ...prev, [name]: value }));
-  };
-
   // Add anime to queue and reward XP
   const handleAdd = (e) => {
     e.preventDefault();
     if (!newAnime.title.trim() || !newAnime.image.trim()) return;
-    addXP(120);
     setQueueItems([...queueItems, newAnime]);
     setNewAnime({ title: '', description: '', image: '' });
     setShowModal(false);

@@ -1,33 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useXP } from '../Home/XpContent';
 
 const Join = () => {
     const [formData, setFormData] = useState({ username: '', email: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
-    const { addXP, xpGain } = useXP();
     const navigate = useNavigate();
 
     // State for the forum
     const [posts, setPosts] = useState([
     ]);
     const [newPostContent, setNewPostContent] = useState('');
-
-    // For XP animation
-    const count = useMotionValue(0);
-    const rounded = useTransform(count, Math.round);
-
-    useEffect(() => {
-        if (isSubmitted) {
-            const animation = animate(count, xpGain || 50, {
-                duration: 1.5,
-                ease: "easeOut"
-            });
-            return animation.stop;
-        }
-    }, [isSubmitted, xpGain]);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });

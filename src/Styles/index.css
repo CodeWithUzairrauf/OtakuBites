@@ -7,4 +7,44 @@ body,
     margin: 0;
     padding: 0;
     background-color: black;
+    overflow-y: hidden;
+}
+
+.akatsuki-cloud {
+    position: absolute;
+    background-image: url("https: //www.google.com/imgres?q=akatsuki%20clouds%20&imgurl=https%3A%2F%2Fp1.hiclipart.com%2Fpreview%2F120%2F609%2F141%2Fakatsuki-cloud-akatsuki-logo-png-clipart.jpg&imgrefurl=https%3A%2F%2Fwww.hiclipart.com%2Ffree-transparent-background-png-clipart-pdtxn&docid=4EYUIt1aK30DQM&tbnid=Ovy6nHn06KUQMM&vet=12ahUKEwj-8P3AnZ6PAxUogP0HHW4TEXsQM3oECDAQAA..i&w=800&h=450&hcb=2&ved=2ahUKEwj-8P3AnZ6PAxUogP0HHW4TEXsQM3oECDAQAA");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 180px;
+    height: 120px;
+}
+
+.cloud-1 {
+    top: 20%;
+    left: -200px;
+    animation: floatClouds 40s linear infinite;
+}
+
+.cloud-2 {
+    top: 50%;
+    left: -250px;
+    animation: floatClouds 60s linear infinite;
+    transform: scale(1.2);
+}
+
+.cloud-3 {
+    top: 75%;
+    left: -300px;
+    animation: floatClouds 80s linear infinite;
+    transform: scale(0.8);
+}
+
+@keyframes floatClouds {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(120vw);
+    }
 }

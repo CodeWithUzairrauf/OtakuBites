@@ -1,33 +1,20 @@
-// src/components/Navbar.jsx
 import React, { useState } from "react";
-import { useXP } from "../../pages/Home/XpContent"; // ← adjust path if your context lives elsewhere
 import { Link } from "react-router-dom";
+import { motion } from 'framer-motion';
 import {
     FaHome,
     FaDrumstickBite,
     FaGamepad,
     FaUsers,
-    FaUserAlt,
     FaTimes,
-    FaBars,
 } from "react-icons/fa";
 
-const NarutoRainNavbar = () => {
+const Navbar = () => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-    // only read values from context here — do NOT call addXP in the navbar
-    const {
-        level = 1,
-        xp = 0,
-        xpForNextLevel = 100,
-        xpGain = 0,
-        showXPGain = false,
-    } = useXP();
 
     const toggleMobileMenu = () => {
         setMobileMenuOpen(!isMobileMenuOpen);
     };
-
-    const xpPercent = Math.min((xp / xpForNextLevel) * 100, 100);
 
     const navLinks = [
         { path: "/", label: "Home", icon: <FaHome /> },
@@ -37,45 +24,28 @@ const NarutoRainNavbar = () => {
     ];
 
     return (
-        <div className="relative font-mono bg-black text-white">
-            {/* Naruto Rain (visual only) */}
-            <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
-                {[...Array(8)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="animate-naruto-fall absolute text-red-400"
-                        style={{
-                            top: `${-10 - i * 6}%`,
-                            left: `${Math.random() * 90}%`,
-                            fontSize: `${1 + Math.random() * 2}rem`,
-                            animationDuration: `${10 + Math.random() * 6}s`,
-                            animationDelay: `${Math.random() * 5}s`,
-                        }}
-                    >
-                        🍥
-                    </div>
-                ))}
-            </div>
+        <div className="relative font-mono">
 
             {/* Navbar */}
-            <header className="z-20 relative bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] border-b border-red-600 shadow-lg backdrop-blur-md">
-                <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between font-semibold text-white relative">
+            <header className="z-20 relative w-full bg-gradient-to-r from-[#0B0C10] to-[#1F2833] shadow-lg">
+                <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between font-semibold text-white">
+
                     {/* Logo */}
                     <div className="flex items-center gap-3">
-                        <Link to="/" className="flex items-center gap-3">
-                            <span className="text-red-400 text-2xl tracking-widest font-bold drop-shadow">
-                                🍥OTAKUBITES
+                        <Link to="/" className="flex items-center gap-3 transition-all">
+                            <span className="text-[#F5F5F5] text-2xl tracking-widest drop-shadow-sm">
+                                🍥 OtakuBites
                             </span>
                         </Link>
                     </div>
 
-                    {/* Center Nav */}
-                    <ul className="hidden md:flex items-center space-x-8 text-sm uppercase tracking-wider">
+                    {/* Desktop Links */}
+                    <ul className="hidden md:flex items-center space-x-6 text-sm uppercase tracking-wider">
                         {navLinks.map((link) => (
                             <li key={link.path}>
                                 <Link
                                     to={link.path}
-                                    className="flex items-center gap-2 hover:text-red-400 transition duration-300"
+                                    className="flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-[#FF7EB6] hover:text-black"
                                 >
                                     {link.icon} {link.label}
                                 </Link>
@@ -83,68 +53,62 @@ const NarutoRainNavbar = () => {
                         ))}
                     </ul>
 
-                    {/* Profile / XP */}
-                    <div className="flex items-center gap-4 text-xs">
-                        <div className="hidden md:block text-right">
-                            <div className="flex items-center gap-2">
-                                <FaUserAlt className="text-red-300 text-lg" />
-                                <span>Lv {level}</span>
-                            </div>
+                    {/* Sign up Button */}
+                    <Link
+                        to="community/signup"
+                        className="hidden md:block px-5 py-2 rounded-2xl tracking-widest font-bold text-sm 
+                        bg-[#FF7EB6] text-black hover:bg-[#ff649f] transition-all duration-300 shadow-md"
+                    >
+                        Sign up
+                    </Link>
 
-                            <div className="w-24 bg-red-400/50 rounded h-2 mt-1 overflow-hidden">
-                                <div
-                                    className="bg-red-400 h-2 rounded transition-all duration-500"
-                                    style={{ width: `${xpPercent}%` }}
-                                />
-                            </div>
-                        </div>
-
-                        {/* Floating +XP (shows when context sets showXPGain=true) */}
-                        {showXPGain && (
-                            <div className="absolute -top-4 right-0 text-red-400 font-bold select-none pointer-events-none text-sm">
-                                +{xpGain} XP
-                            </div>
-                        )}
-
-                        {/* Mobile Menu Button */}
-                        <button
-                            className="md:hidden text-2xl text-white z-50"
-                            onClick={toggleMobileMenu}
-                        >
-                            <FaBars />
-                        </button>
-                    </div>
+                    {/* Mobile Menu Toggle */}
+                    <motion.button
+                        className="md:hidden text-2xl text-white"
+                        onClick={toggleMobileMenu}
+                        whileTap={{ scale: 0.9 }}
+                    >
+                        {isMobileMenuOpen ? <FaTimes /> : <span className="material-icons">menu</span>}
+                    </motion.button>
                 </nav>
             </header>
 
             {/* Mobile Menu (Fullscreen Overlay) */}
             <div
-                className={`md:hidden fixed inset-0 bg-black bg-opacity-90 z-30 flex flex-col items-center justify-center transition-opacity duration-300 ${
-                    isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
-                }`}
+                className={`md:hidden fixed inset-0 bg-[#0B0C10] bg-opacity-95 z-30 flex flex-col items-center justify-center transition-opacity duration-300 ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+                    }`}
             >
-                <button
-                    className="absolute top-6 right-6 text-2xl text-white z-50"
+                <motion.button
+                    className="absolute top-6 right-6 text-2xl text-[#FF7EB6] z-50"
                     onClick={toggleMobileMenu}
+                    whileTap={{ rotate: 90 }}
                 >
                     <FaTimes />
-                </button>
+                </motion.button>
                 <ul className="flex flex-col items-center space-y-8 text-lg uppercase tracking-wider">
                     {navLinks.map((link) => (
                         <li key={link.path}>
                             <Link
                                 to={link.path}
-                                className="flex items-center gap-3 hover:text-red-400 transition duration-300"
+                                className="flex items-center gap-3 transition duration-300 hover:text-[#FF7EB6]"
                                 onClick={() => setMobileMenuOpen(false)} // Close menu on link click
                             >
                                 {link.icon} {link.label}
                             </Link>
                         </li>
                     ))}
+                    <Link
+                        to="community/signup"
+                        className="mt-8 px-6 py-3 rounded-2xl bg-[#FF7EB6] text-black font-bold tracking-widest 
+                        hover:bg-[#ff649f] transition-all duration-300 shadow-lg"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        Sign up
+                    </Link>
                 </ul>
             </div>
         </div>
     );
 };
 
-export default NarutoRainNavbar;
+export default Navbar;
