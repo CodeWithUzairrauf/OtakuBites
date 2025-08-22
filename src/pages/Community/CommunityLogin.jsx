@@ -83,5 +83,4 @@ const CommunityLogin = () => {
         </section>
     );
 };
-
 export default CommunityLogin;
