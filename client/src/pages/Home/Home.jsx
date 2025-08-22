@@ -104,6 +104,7 @@ export default function Home() {
   */}
 
 import { motion } from 'framer-motion';
+import { useEffect, useState } from "react";
 import { GiNoodles, GiGameConsole, GiChatBubble } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import "../../Styles/index.css"
@@ -119,6 +120,24 @@ const cardVariants = {
 };
 
 export default function Home() {
+
+  const [serverStatus, setServerStatus] = useState(null);
+
+useEffect(() => {
+  // Ping your backend when component mounts
+  fetch("http://localhost:8576/")
+    .then((res) => res.text())
+    .then((data) => {
+      if (data.includes("API is running")) {
+        alert("✅ Server connected successfully!"); 
+      } else {
+        alert("⚠️ Could not verify server connection.");
+      }
+    })
+    .catch(() => alert("❌ Server is unreachable."));
+}, []);
+
+  
   const features = [
     {
       icon: <GiNoodles className="text-[#FF7EB6] text-3xl" />,
@@ -142,7 +161,7 @@ export default function Home() {
 
   return (
     <div className="text-white flex flex-col items-center justify-center px-4">
-
+      
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -171,15 +190,12 @@ export default function Home() {
           className="relative z-10 mt-8 px-6 py-3 rounded-full font-bold text-base shadow-lg 
       bg-[#FF7EB6] text-black tracking-wide transition-all hover:bg-[#ff649f]"
         >
-          <Link to="/recipes">
-            Start Exploring
-          </Link>
+          <Link to="/recipes">Start Exploring</Link>
         </motion.button>
       </motion.div>
 
       {/* Features Section */}
       <div className="relative mb-10 px-4 overflow-hidden">
-
         {/* Akatsuki Clouds Background */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="akatsuki-cloud cloud-1"></div>
