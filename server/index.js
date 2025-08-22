@@ -7,13 +7,17 @@ const app = express();
 
 // ✅ CORS Options
 const corsOptions = {
-    origin: 'http://localhost:5173', // your Vite frontend URL
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// Routes
+const authRoutes = require("./routes/authRoutes");
+app.use("/api/auth", authRoutes);
 
 // Test route
 app.get('/', (req, res) => {
@@ -24,6 +28,7 @@ app.get('/', (req, res) => {
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
+
 
 // Start Server
 const PORT = process.env.PORT || 8576;
