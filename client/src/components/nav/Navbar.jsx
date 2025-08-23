@@ -9,7 +9,7 @@ import {
     FaTimes,
 } from "react-icons/fa";
 
-const Navbar = () => {
+const Navbar = ({ isLoggedIn, username, onLogout, showLoginButton }) => {
     const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
@@ -53,14 +53,38 @@ const Navbar = () => {
                         ))}
                     </ul>
 
-                    {/* Sign up Button */}
-                    <Link
-                        to="community/signup"
-                        className="hidden md:block px-5 py-2 rounded-2xl tracking-widest font-bold text-sm 
-                        bg-[#FF7EB6] text-black hover:bg-[#ff649f] transition-all duration-300 shadow-md"
-                    >
-                        Sign up
-                    </Link>
+                    {/* Auth Buttons */}
+                    <div className="hidden md:flex items-center gap-4">
+                        {isLoggedIn ? (
+                            <>
+                                <span className="text-white">Welcome, {username}</span>
+                                <button
+                                    onClick={onLogout}
+                                    className="px-5 py-2 rounded-2xl tracking-widest font-bold text-sm 
+                                    bg-[#FF7EB6] text-black hover:bg-[#ff649f] transition-all duration-300 shadow-md"
+                                >
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link
+                                    to="/login"
+                                    className="px-5 py-2 rounded-2xl tracking-widest font-bold text-sm 
+                                    bg-transparent border-2 border-[#FF7EB6] text-white hover:bg-[#FF7EB6] hover:text-black transition-all duration-300"
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    to="/signup"
+                                    className="px-5 py-2 rounded-2xl tracking-widest font-bold text-sm 
+                                    bg-[#FF7EB6] text-black hover:bg-[#ff649f] transition-all duration-300 shadow-md"
+                                >
+                                    Sign up
+                                </Link>
+                            </>
+                        )}
+                    </div>
 
                     {/* Mobile Menu Toggle */}
                     <motion.button
@@ -97,14 +121,39 @@ const Navbar = () => {
                             </Link>
                         </li>
                     ))}
-                    <Link
-                        to="community/signup"
-                        className="mt-8 px-6 py-3 rounded-2xl bg-[#FF7EB6] text-black font-bold tracking-widest 
-                        hover:bg-[#ff649f] transition-all duration-300 shadow-lg"
-                        onClick={() => setMobileMenuOpen(false)}
-                    >
-                        Sign up
-                    </Link>
+                    <div className="mt-8 flex flex-col items-center gap-6">
+                        {isLoggedIn ? (
+                            <>
+                                <span className="text-white text-lg">Welcome, {username}   </span>
+                                <button
+                                    onClick={() => { onLogout(); setMobileMenuOpen(false); }}
+                                    className="px-6 py-3 rounded-2xl bg-[#FF7EB6] text-black font-bold tracking-widest 
+                                    hover:bg-[#ff649f] transition-all duration-300 shadow-lg"
+                                >
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <Link
+                                    to="/login"
+                                    className="px-6 py-3 rounded-2xl bg-transparent border-2 border-[#FF7EB6] text-white font-bold tracking-widest 
+                                    hover:bg-[#FF7EB6] hover:text-black transition-all duration-300"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    to="/signup"
+                                    className="px-6 py-3 rounded-2xl bg-[#FF7EB6] text-black font-bold tracking-widest 
+                                    hover:bg-[#ff649f] transition-all duration-300 shadow-lg"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                >
+                                    Sign up
+                                </Link>
+                            </>
+                        )}
+                    </div>
                 </ul>
             </div>
         </div>

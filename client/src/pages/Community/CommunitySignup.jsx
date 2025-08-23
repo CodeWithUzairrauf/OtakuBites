@@ -26,7 +26,6 @@ const Join = () => {
 
         // Simulate API call
         setTimeout(() => {
-            addXP(50); // Award 50 XP for joining
             setIsSubmitting(false);
             setIsSubmitted(true);
         }, 1500);
