@@ -15,9 +15,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Routes
+// Auth Routes
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
+
+// Recipe Routes
+const recipeRoutes = require("./routes/recipeRoutes");
+app.use("/api/recipes", recipeRoutes);
 
 // Test route
 app.get('/', (req, res) => {
