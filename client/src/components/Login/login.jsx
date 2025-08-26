@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../Api/axios';
+import api from '../../Api/axios.js';
 
 const Login = ({ onLogin }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -20,6 +20,7 @@ const Login = ({ onLogin }) => {
                 password: formData.password,
             });
             onLogin(response.data.username);
+            localStorage.setItem("token", response.data.token);
             navigate('/');
             console.log("Login successful:", response.data);
         } catch (error) {

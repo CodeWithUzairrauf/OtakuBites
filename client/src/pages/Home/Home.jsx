@@ -123,21 +123,21 @@ export default function Home() {
 
   const [serverStatus, setServerStatus] = useState(null);
 
-useEffect(() => {
-  // Ping your backend when component mounts
-  fetch("http://localhost:8576/")
-    .then((res) => res.text())
-    .then((data) => {
-      if (data.includes("API is running")) {
-        alert("✅ Server connected successfully!"); 
-      } else {
-        alert("⚠️ Could not verify server connection.");
-      }
-    })
-    .catch(() => alert("❌ Server is unreachable."));
-}, []);
+  useEffect(() => {
+    // Ping your backend when component mounts
+    fetch("http://localhost:8576/")
+      .then((res) => res.text())
+      .then((data) => {
+        if (data.includes("API is running")) {
+          console.log("✅ Server connected successfully!");
+        } else {
+          console.log("⚠️ Could not verify server connection.");
+        }
+      })
+      .catch(() => console.log("❌ Server is unreachable."));
+  }, []);
 
-  
+
   const features = [
     {
       icon: <GiNoodles className="text-[#FF7EB6] text-3xl" />,
@@ -161,7 +161,7 @@ useEffect(() => {
 
   return (
     <div className="text-white flex flex-col items-center justify-center px-4">
-      
+
       {/* Header Section */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}

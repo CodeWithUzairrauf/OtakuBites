@@ -40,7 +40,7 @@ const Community = () => {
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <p className="mb-6 text-lg text-gray-300 leading-relaxed">
-            Our Sakura-powered community is coming soon!
+            Our Otaku community is coming soon!
             Connect, share, and grow with fellow anime & food lovers.
           </p>
 

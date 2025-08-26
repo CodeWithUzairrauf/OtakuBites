@@ -1,72 +1,89 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { GiChopsticks, GiNoodles, GiSushis } from 'react-icons/gi';
-import { GiMeat } from "react-icons/gi";
-import { FaBoxOpen } from 'react-icons/fa';
-import { FaBowlRice } from "react-icons/fa6";
-
-const recipes = [
-  {
-    title: 'Ichiraku Ramen',
-    description: "Naruto’s favorite miso ramen from his beloved Ichiraku shop.",
-    icon: <GiNoodles size={30} className="text-red-400" />,
-  },
-  {
-    title: 'Omurice',
-    description: "Seen in countless anime cafes — fluffy omelette over ketchup rice with cute art.",
-    icon: <FaBoxOpen size={30} className="text-red-400" />,
-  },
-  {
-    title: 'Sushi Platter',
-    description: "Inspired by Tokyo Ghoul’s high-end sushi bar scene.",
-    icon: <GiSushis size={30} className="text-red-400" />,
-  },
-  {
-    title: 'Bento Box',
-    description: "School lunch like the ones in My Hero Academia.",
-    icon: <GiChopsticks size={30} className="text-red-400" />,
-  },
-  {
-    title: 'Onigiri',
-    description: "Rice ball just like the ones in One Piece.",
-    icon: <FaBowlRice size={30} className="text-red-400" />,
-  },
-  {
-    title: 'Takoyaki',
-    description: "Osaka street food often featured in slice-of-life festival anime scenes.",
-    icon: <GiMeat size={30} className="text-red-400" />,
-  },
-]
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Recipes = () => {
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const res = await axios.get("http://localhost:8576/api/recipes");
+        setRecipes(res.data);
+      } catch (err) {
+        console.error("Error fetching recipes:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRecipes();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="flex justify-center items-center min-h-screen bg-black text-white">
+        <p>Loading recipes...</p>
+      </section>
+    );
+  }
+
   return (
-    <section className="relative min-h-screen bg-black text-white py-16 px-6 md:px-20 overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-[#0B0C10] via-[#1a1a1a] to-[#2A0A14] text-white py-16 px-6 md:px-12 overflow-hidden">
+      {/* Title */}
+      <div className="flex justify-center items-center mb-12">
+        <motion.h1
+          className="text-3xl md:text-5xl font-bold text-[#FF7EB6] text-center"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Anime Recipes
+        </motion.h1>
+        <Link to="/recipes/add">
+          <motion.button
+            className="ml-4 bg-[#FF7EB6] text-black py-2 px-4 rounded-full font-semibold shadow-lg hover:bg-[#ff649f] transition"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Add Recipe
+          </motion.button>
+        </Link>
+      </div>
 
-      <motion.h1
-        className="text-3xl md:text-5xl font-medium text-red-400 mb-6"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className='text-center p-4'>Anime Recipes</div>
-      </motion.h1>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
-        {recipes.map(({ id, title, description, icon }) => (
+      {/* Pinterest-style Masonry Cards */}
+      <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 z-10 relative">
+        {recipes.map((recipe, index) => (
           <motion.div
-            key={id}
-            className="bg-zinc-900 border border-red-400 rounded-xl p-6"
-            whileHover={{ scale: 1.05, boxShadow: '0 0 20px rgba(255, 80, 80, 0.5)' }}
-            whileTap={{ scale: 0.98 }}
+            key={recipe._id}
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: id * 0.1 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            whileHover={{ scale: 1.02 }}
+            className="break-inside-avoid bg-[#0B0C10]/90 border border-[#1F2833] 
+                       p-5 rounded-2xl shadow-md hover:shadow-pink-500/30 
+                       transition transform hover:-translate-y-1 backdrop-blur-sm"
           >
-            <div className="mb-4">{icon}</div>
-            <h2 className="text-xl font-semibold text-red-300 mb-2">{title}</h2>
-            <p className="text-sm text-zinc-300 mb-4">{description}</p>
-            <Link to={`/recipes/${title}`} className="text-red-400 hover:underline text-sm">
+            {recipe.image && (
+              <img
+                src={recipe.image}
+                alt={recipe.title}
+                className="w-full object-cover rounded-lg mb-4"
+              />
+            )}
+
+            <h2 className="text-lg font-semibold text-[#FF7EB6] mb-2">
+              {recipe.title}
+            </h2>
+            <p className="text-sm text-gray-400 mb-4 line-clamp-3">
+              {recipe.description}
+            </p>
+
+            <Link
+              to={`/recipes/${recipe._id}`}
+              className="text-[#FF7EB6] mt-2 block text-sm font-medium hover:text-[#ff649f] transition-colors"
+            >
               View Recipe →
             </Link>
           </motion.div>
