@@ -1,39 +1,54 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../../Api/axios';
 
-const CommunityLogin = ({ onLogin }) => {
+const Login = ({ onLogin }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleLogin = async () => {
+        try {
+            const response = await api.post("/api/auth/login", {
+                email: formData.email,
+                password: formData.password,
+            });
+            onLogin(response.data.username);
+            navigate('/');
+            console.log("Login successful:", response.data);
+        } catch (error) {
+            setError(error.response?.data?.message || 'An unexpected error occurred.');
+            console.error("Login failed:", error.response?.data || error.message);
+        }
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        if (isSubmitting) return;
-
+        setError(null);
         setIsSubmitting(true);
-        console.log('Logging in with:', formData);
-
-        // Simulate API
-        setTimeout(() => {
+        try {
+            await handleLogin();
+        } finally {
             setIsSubmitting(false);
-            if (onLogin) {
-                onLogin(formData);
-            }
-        }, 2000);
+        }
     };
 
     return (
-        <section className="relative h-screen w-screen bg-gradient-to-br from-[#0B0C10] to-[#0B0C10] 
-      text-white flex items-center justify-center overflow-hidden">
+        <section className="relative min-h-screen w-full 
+      bg-gradient-to-br from-[#0B0C10] via-[#1a1a1a] to-[#2A0A14] bg-fixed 
+      text-white flex justify-center items-center py-12">
 
             {/* Card */}
             <motion.div
-                className="relative z-10 w-full max-w-md bg-[#1a1a1a] border border-[#FF7EB6]/40 
-  rounded-2xl p-10 shadow-lg shadow-[#FF7EB6]/20"
+                className="relative z-10 w-full max-w-md 
+        bg-[#1a1a1a]/90 border border-[#FF7EB6]/40 
+        rounded-2xl p-10 shadow-lg shadow-[#FF7EB6]/20"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}
@@ -50,6 +65,16 @@ const CommunityLogin = ({ onLogin }) => {
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    {error && (
+                        <motion.div
+                            className="bg-red-500/20 border border-red-500 text-red-300 p-3 rounded-lg text-center"
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                        >
+                            {error}
+                        </motion.div>
+                    )}
+
                     <div>
                         <label className="block text-gray-300 mb-2 font-semibold">Email</label>
                         <input
@@ -59,7 +84,7 @@ const CommunityLogin = ({ onLogin }) => {
                             onChange={handleChange}
                             placeholder="Enter your Email"
                             className="w-full p-3 rounded-lg bg-black/70 text-white 
-              focus:outline-none focus:ring-2 focus:ring-[#FF7EB6] transition disabled:opacity-50"
+                focus:outline-none focus:ring-2 focus:ring-[#FF7EB6] transition disabled:opacity-50"
                             required
                             disabled={isSubmitting}
                         />
@@ -74,7 +99,7 @@ const CommunityLogin = ({ onLogin }) => {
                             onChange={handleChange}
                             placeholder="Enter your password"
                             className="w-full p-3 rounded-lg bg-black/70 text-white 
-              focus:outline-none focus:ring-2 focus:ring-[#FF7EB6] transition disabled:opacity-50"
+                focus:outline-none focus:ring-2 focus:ring-[#FF7EB6] transition disabled:opacity-50"
                             required
                             disabled={isSubmitting}
                         />
@@ -85,7 +110,7 @@ const CommunityLogin = ({ onLogin }) => {
                         whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
                         type="submit"
                         className="w-full py-3 bg-[#FF7EB6] text-black rounded-full font-semibold shadow-lg 
-            hover:bg-[#ff649f] transition disabled:bg-pink-900  disabled:text-gray-300 disabled:cursor-not-allowed"
+              hover:bg-[#ff649f] transition disabled:bg-pink-900 disabled:text-gray-300 disabled:cursor-not-allowed"
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? 'Logging in...' : 'Login'}
@@ -103,4 +128,4 @@ const CommunityLogin = ({ onLogin }) => {
     );
 };
 
-export default CommunityLogin;
+export default Login;

@@ -19,12 +19,12 @@ const Navbar = ({ isLoggedIn, username, onLogout, showLoginButton }) => {
     const navLinks = [
         { path: "/", label: "Home", icon: <FaHome /> },
         { path: "/recipes", label: "Recipes", icon: <FaDrumstickBite /> },
-        { path: "/queue", label: "Queue", icon: <FaGamepad /> },
+        // { path: "/queue", label: "Queue", icon: <FaGamepad /> },
         { path: "/community", label: "Community", icon: <FaUsers /> },
     ];
 
     return (
-        <div className="relative font-mono">
+        <div className="relative font-mono overflow-hidden">
 
             {/* Navbar */}
             <header className="z-20 relative w-full bg-gradient-to-r from-[#0B0C10] to-[#1F2833] shadow-lg">
