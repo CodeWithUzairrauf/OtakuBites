@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import api from '../../api/axios'; // ✅ ensure lowercase "api"
+import api from '../../Api/axios.js'; // ✅ ensure lowercase "api"
 
 const Signup = ({ onSignupSuccess }) => {
     const [formData, setFormData] = useState({
