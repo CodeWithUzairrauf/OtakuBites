@@ -79,7 +79,9 @@ exports.deleteRecipe = async (req, res) => {
     if (recipe.author.toString() !== req.user._id.toString())
       return res.status(403).json({ message: "Not authorized to delete this recipe" });
 
-    await recipe.remove();
+    // Use deleteOne instead of remove
+    await recipe.deleteOne();
+
     res.status(200).json({ message: "Recipe deleted" });
   } catch (error) {
     res.status(500).json({ message: error.message, stack: error.stack });
