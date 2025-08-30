@@ -109,6 +109,7 @@ import { GiNoodles, GiGameConsole, GiChatBubble } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import "../../Styles/index.css"
 import NarutoBg from "../../assets/naruto-bg.jpg";
+import api from "../../Api/axios";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -125,10 +126,9 @@ export default function Home() {
 
   useEffect(() => {
     // Ping your backend when component mounts
-    fetch("https://otaku-bites.vercel.app/")
-      .then((res) => res.text())
-      .then((data) => {
-        if (data.includes("API is running")) {
+    api.get("/")
+      .then((res) => {
+        if (res.data.includes("API is running")) {
           console.log("✅ Server connected successfully!");
         } else {
           console.log("⚠️ Could not verify server connection.");
