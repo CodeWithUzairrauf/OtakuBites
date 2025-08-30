@@ -24,9 +24,12 @@ exports.createCommunity = async (req, res) => {
 // Get all communities
 exports.getCommunities = async (req, res) => {
   try {
+    console.log("Attempting to fetch communities from MongoDB...");
     const communities = await Community.find();
+    console.log("Successfully fetched communities.", communities.length, "communities found.");
     res.json(communities);
   } catch (error) {
+    console.error("Error fetching communities:", error);
     res.status(500).json({ message: error.message });
   }
 };
