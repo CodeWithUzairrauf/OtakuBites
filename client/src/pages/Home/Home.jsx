@@ -196,13 +196,6 @@ export default function Home() {
 
       {/* Features Section */}
       <div className="relative mb-10 px-4 overflow-hidden">
-        {/* Akatsuki Clouds Background */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="akatsuki-cloud cloud-1"></div>
-          <div className="akatsuki-cloud cloud-2"></div>
-          <div className="akatsuki-cloud cloud-3"></div>
-        </div>
-
         {/* Cards Grid */}
         <div className="relative grid grid-cols-1 md:grid-cols-3 z-10">
           {features.map((item, i) => (
