@@ -10,7 +10,7 @@ const Recipes = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await axios.get("http://localhost:8576/api/recipes");
+        const res = await axios.get("https://otaku-bites.vercel.app/api/recipes");
         setRecipes(res.data);
       } catch (err) {
         console.error("Error fetching recipes:", err);

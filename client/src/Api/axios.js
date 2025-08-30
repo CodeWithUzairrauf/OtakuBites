@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8576/"; // Hardcoded URL
+const API_BASE_URL = "https://otaku-bites.vercel.app"; // Hardcoded URL
 
 const api = axios.create({
     baseURL: API_BASE_URL,
