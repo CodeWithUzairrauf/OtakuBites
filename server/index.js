@@ -7,7 +7,7 @@ const app = express();
 
 // ✅ CORS Options
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: 'https://otaku-bites.vercel.app',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true
 };
