@@ -125,7 +125,7 @@ export default function Home() {
 
   useEffect(() => {
     // Ping your backend when component mounts
-    fetch("https://otaku-bites.vercel.app/")
+    fetch("http://localhost:8576/")
       .then((res) => res.text())
       .then((data) => {
         if (data.includes("API is running")) {

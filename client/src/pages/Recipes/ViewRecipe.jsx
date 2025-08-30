@@ -11,7 +11,7 @@ const ViewRecipe = () => {
     useEffect(() => {
         const fetchRecipe = async () => {
             try {
-                const res = await axios.get(`https://otaku-bites.vercel.app/api/recipes/${id}`)
+                const res = await axios.get(`http://localhost:8576/api/recipes/${id}`)
                 setRecipe(res.data);
             } catch (err) {
                 console.error("Error fetching recipe:", err);
