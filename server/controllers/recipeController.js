@@ -29,6 +29,7 @@ exports.addRecipe = async (req, res) => {
 exports.getRecipes = async (req, res) => {
   try {
     const recipes = await Recipe.find().populate("author", "username email");
+    res.setHeader('Cache-Control', 'no-store');
     res.status(200).json(recipes);
   } catch (error) {
     res.status(500).json({ message: error.message, stack: error.stack });

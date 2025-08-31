@@ -11,7 +11,7 @@ const Recipes = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await api.get(getRecipesURL);
+        const res = await api.get(`${getRecipesURL}?_=${new Date().getTime()}`);
         setRecipes(res.data);
       } catch (err) {
         console.error("Error fetching recipes:", err);
