@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import api from '../../Api/axios.js'; // ✅ ensure lowercase "api"
+import { registerURL } from '../../Api/apiEndpoints.js';
 
 const Signup = ({ onSignupSuccess }) => {
     const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ const Signup = ({ onSignupSuccess }) => {
         setIsSubmitting(true);
 
         try {
-            const response = await api.post("/api/auth/register", formData);
+            const response = await api.post(registerURL, formData);
             console.log("Signup successful:", response.data);
 
             if (onSignupSuccess) {

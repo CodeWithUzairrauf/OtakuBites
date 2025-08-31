@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from '../../Api/axios';
+import { getCommunitiesURL, listPostsURL, createPostURL, joinCommunityURL, getCommentsURL, createCommentURL } from '../../Api/apiEndpoints';
 
 const Comment = ({ comment, onReply }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
@@ -55,7 +56,7 @@ const Community = ({ username }) => {
   useEffect(() => {
     const fetchCommunities = async () => {
       try {
-        const response = await axios.get('/api/communities');
+        const response = await axios.get(getCommunitiesURL);
         setCommunities(response.data);
       } catch (error) {
         console.error('Error fetching communities:', error);
@@ -69,7 +70,7 @@ const Community = ({ username }) => {
     if (selectedCommunity) {
       const fetchPosts = async () => {
         try {
-          const response = await axios.get(`/api/posts/community/${selectedCommunity._id}`);
+          const response = await axios.get(listPostsURL.replace(':communityId', selectedCommunity._id));
           setPosts(response.data.items);
         } catch (error) {
           console.error('Error fetching posts:', error);
@@ -86,7 +87,7 @@ const Community = ({ username }) => {
     if (!selectedCommunity) return;
 
     try {
-      const response = await axios.post('/api/posts', {
+      const response = await axios.post(createPostURL, {
         communityId: selectedCommunity._id,
         title: newPostTitle,
         content: newPostContent,
@@ -103,7 +104,7 @@ const Community = ({ username }) => {
     if (!selectedCommunity) return;
 
     try {
-      await axios.post(`/api/communities/${selectedCommunity._id}/join`);
+      await axios.post(joinCommunityURL.replace(':id', selectedCommunity._id));
       setIsMember(true);
     } catch (error) {
       console.error('Error joining community:', error);
@@ -116,7 +117,7 @@ const Community = ({ username }) => {
       setComments([]);
     } else {
       try {
-        const response = await axios.get(`/api/posts/${postId}/comments`);
+        const response = await axios.get(getCommentsURL.replace(':postId', postId));
         setComments(response.data);
         setActivePostId(postId);
       } catch (error) {
@@ -128,7 +129,7 @@ const Community = ({ username }) => {
   const handleCommentSubmit = async (e, postId) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/posts/${postId}/comments`, { content: newComment });
+      const response = await axios.post(createCommentURL.replace(':postId', postId), { content: newComment });
       setComments([...comments, response.data]);
       setNewComment('');
     } catch (error) {
@@ -138,7 +139,7 @@ const Community = ({ username }) => {
 
   const handleReplySubmit = async (content, parentId) => {
     try {
-      const response = await axios.post(`/api/posts/${activePostId}/comments`, { content, parentId });
+      const response = await axios.post(createCommentURL.replace(':postId', activePostId), { content, parentId });
       toggleComments(activePostId);
     } catch (error) {
       console.error('Error creating reply:', error);

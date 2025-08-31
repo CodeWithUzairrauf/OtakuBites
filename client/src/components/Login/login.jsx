@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import api from '../../Api/axios.js';
+import { loginURL } from '../../Api/apiEndpoints.js';
 
 const Login = ({ onLogin }) => {
     const [formData, setFormData] = useState({ email: '', password: '' });
@@ -15,7 +16,7 @@ const Login = ({ onLogin }) => {
 
     const handleLogin = async () => {
         try {
-            const response = await api.post("/api/auth/login", {
+            const response = await api.post(loginURL, {
                 email: formData.email,
                 password: formData.password,
             });

@@ -41,6 +41,50 @@ const ErrorIcon = ({ className }) => (
   </svg>
 );
 
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import api from "../../Api/axios";
+import { useNavigate } from "react-router-dom";
+import TagsInput from "../../components/TagsInput";
+import { addRecipeURL } from "../../Api/apiEndpoints";
+
+const CheckIcon = ({ className }) => (
+  <svg className={`w-6 h-6 mr-2 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <motion.circle
+      cx="12"
+      cy="12"
+      r="10"
+      strokeWidth="2"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: 1 }}
+      transition={{ duration: 0.4 }}
+    />
+    <motion.path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M5 13l4 4L19 7"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: 1 }}
+      transition={{ duration: 0.4, delay: 0.4 }}
+    />
+  </svg>
+);
+
+const ErrorIcon = ({ className }) => (
+  <svg className={`w-6 h-6 mr-3 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <motion.path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M6 18L18 6M6 6l12 12"
+      initial={{ pathLength: 0, opacity: 0 }}
+      animate={{ pathLength: 1, opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    />
+  </svg>
+);
+
 const AddRecipe = () => {
   const [formData, setFormData] = useState({
     title: "",
@@ -76,7 +120,7 @@ const AddRecipe = () => {
         steps: formData.steps.split(",").map((item) => item.trim()),
       };
 
-      await api.post("/api/recipes", recipeData, {
+      await api.post(addRecipeURL, recipeData, {
         timeout: 5000,
       });
 

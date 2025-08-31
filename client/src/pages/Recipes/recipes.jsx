@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import api from "../../Api/axios";
+import { getRecipesURL } from "../../Api/apiEndpoints";
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);
@@ -10,7 +11,7 @@ const Recipes = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const res = await axios.get("/api/recipes");
+        const res = await api.get(getRecipesURL);
         setRecipes(res.data);
       } catch (err) {
         console.error("Error fetching recipes:", err);

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import axios from "axios";
 import { motion } from "framer-motion";
+import api from "../../Api/axios";
+import { getRecipeByIdURL } from "../../Api/apiEndpoints";
 
 const ViewRecipe = () => {
     const { id } = useParams();
@@ -11,7 +12,7 @@ const ViewRecipe = () => {
     useEffect(() => {
         const fetchRecipe = async () => {
             try {
-                const res = await axios.get(`/api/recipes/${id}`)
+                const res = await api.get(getRecipeByIdURL.replace(":id", id));
                 setRecipe(res.data);
             } catch (err) {
                 console.error("Error fetching recipe:", err);
