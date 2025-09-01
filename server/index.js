@@ -4,6 +4,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
+app.disable('etag');
 
 // ✅ CORS Options
 const corsOptions = {
