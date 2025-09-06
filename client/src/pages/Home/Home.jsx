@@ -146,12 +146,6 @@ export default function Home() {
       link: "/recipes"
     },
     {
-      icon: <GiGameConsole className="text-[#FF7EB6] text-3xl" />,
-      title: 'Queue',
-      desc: 'Track your anime cravings with a smart, gamified watchlist.',
-      link: "/queue"
-    },
-    {
       icon: <GiChatBubble className="text-[#FF7EB6] text-3xl" />,
       title: 'Community',
       desc: 'Connect with fellow otakus, share your dishes & collections.',
@@ -168,7 +162,7 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="relative text-center min-h-[500px] flex flex-col items-center justify-center 
-    w-screen -mx-[calc((100vw-100%)/2)] mb-12 overflow-hidden 
+    w-full mb-12 overflow-hidden 
     bg-cover bg-center"
         style={{ backgroundImage: `url(${NarutoBg})` }}
       >
@@ -195,9 +189,9 @@ export default function Home() {
       </motion.div>
 
       {/* Features Section */}
-      <div className="relative mb-10 px-4 overflow-hidden">
+      <div className="relative mb-10 px-4">
         {/* Cards Grid */}
-        <div className="relative grid grid-cols-1 md:grid-cols-3 z-10">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 z-10">
           {features.map((item, i) => (
             <motion.div
               key={i}

@@ -4,43 +4,10 @@ import api from "../../Api/axios";
 import { useNavigate } from "react-router-dom";
 import TagsInput from "../../components/TagsInput";
 import { addRecipeURL } from "../../Api/apiEndpoints";
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
 
-const CheckIcon = ({ className }) => (
-  <svg className={`w-6 h-6 mr-2 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <motion.circle
-      cx="12"
-      cy="12"
-      r="10"
-      strokeWidth="2"
-      initial={{ pathLength: 0 }}
-      animate={{ pathLength: 1 }}
-      transition={{ duration: 0.4 }}
-    />
-    <motion.path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M5 13l4 4L19 7"
-      initial={{ pathLength: 0 }}
-      animate={{ pathLength: 1 }}
-      transition={{ duration: 0.4, delay: 0.4 }}
-    />
-  </svg>
-);
-
-const ErrorIcon = ({ className }) => (
-  <svg className={`w-6 h-6 mr-3 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <motion.path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M6 18L18 6M6 6l12 12"
-      initial={{ pathLength: 0, opacity: 0 }}
-      animate={{ pathLength: 1, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    />
-  </svg>
-);
+const MySwal = withReactContent(Swal);
 
 const AddRecipe = () => {
   const [formData, setFormData] = useState({
@@ -52,7 +19,6 @@ const AddRecipe = () => {
     tags: [],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [notification, setNotification] = useState({ message: "", type: "" });
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -68,7 +34,6 @@ const AddRecipe = () => {
     if (isSubmitting) return;
 
     setIsSubmitting(true);
-    setNotification({ message: "", type: "" });
 
     try {
       const recipeData = {
@@ -81,16 +46,25 @@ const AddRecipe = () => {
         timeout: 5000,
       });
 
-      setNotification({ message: "Recipe added successfully!", type: "success" });
-
-      setTimeout(() => {
+      MySwal.fire({
+        title: "Success!",
+        text: "Recipe added successfully!",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false,
+      }).then(() => {
         navigate("/recipes");
-      }, 2000);
+      });
+
     } catch (error) {
       console.error(error);
-      setNotification({ message: "There was an error adding the recipe.", type: "error" });
+      MySwal.fire({
+        title: "Error!",
+        text: "There was an error adding the recipe.",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
       setIsSubmitting(false);
-      setTimeout(() => setNotification({ message: "", type: "" }), 5000);
     }
   };
 
@@ -115,19 +89,6 @@ const AddRecipe = () => {
         >
           Add New Recipe
         </motion.h1>
-
-        {/* Notification */}
-        {notification.message && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className={`flex items-center justify-center mb-6 text-lg font-semibold ${notification.type === "success" ? "text-green-400" : "text-red-400"
-              }`}
-          >
-            {notification.type === "success" ? <CheckIcon className="text-green-400" /> : <ErrorIcon className="text-red-400" />}
-            <span>{notification.message}</span>
-          </motion.div>
-        )}
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-6">

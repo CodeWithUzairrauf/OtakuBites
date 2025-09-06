@@ -19,7 +19,6 @@ const Navbar = ({ isLoggedIn, username, onLogout, showLoginButton }) => {
     const navLinks = [
         { path: "/", label: "Home", icon: <FaHome /> },
         { path: "/recipes", label: "Recipes", icon: <FaDrumstickBite /> },
-        // { path: "/queue", label: "Queue", icon: <FaGamepad /> },
         { path: "/community", label: "Community", icon: <FaUsers /> },
     ];
 
