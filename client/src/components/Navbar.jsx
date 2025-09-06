@@ -109,7 +109,7 @@ const Navbar = ({ isLoggedIn, username, onLogout, showLoginButton }) => {
                 >
                     <FaTimes />
                 </motion.button>
-                <ul className="flex flex-col items-center space-y-8 text-lg uppercase tracking-wider">
+                <ul className="flex flex-col items-center space-y-8 text-lg uppercase tracking-wider text-white">
                     {navLinks.map((link) => (
                         <li key={link.path}>
                             <Link
