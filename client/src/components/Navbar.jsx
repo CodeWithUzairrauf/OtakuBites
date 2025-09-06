@@ -7,6 +7,7 @@ import {
     FaGamepad,
     FaUsers,
     FaTimes,
+    FaBars,
 } from "react-icons/fa";
 
 const Navbar = ({ isLoggedIn, username, onLogout, showLoginButton }) => {
@@ -91,7 +92,7 @@ const Navbar = ({ isLoggedIn, username, onLogout, showLoginButton }) => {
                         onClick={toggleMobileMenu}
                         whileTap={{ scale: 0.9 }}
                     >
-                        {isMobileMenuOpen ? <FaTimes /> : <span className="material-icons">menu</span>}
+                        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
                     </motion.button>
                 </nav>
             </header>
