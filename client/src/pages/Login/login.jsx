@@ -50,7 +50,7 @@ const Login = ({ onLogin }) => {
             <motion.div
                 className="relative z-10 w-full max-w-md 
         bg-[#1a1a1a]/90 border border-[#FF7EB6]/40 
-        rounded-2xl p-10 shadow-lg shadow-[#FF7EB6]/20"
+        rounded-2xl p-6 md:p-10 shadow-lg shadow-[#FF7EB6]/20"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6 }}

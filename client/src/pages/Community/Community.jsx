@@ -15,7 +15,7 @@ const Comment = ({ comment, onReply }) => {
   };
 
   return (
-    <div className="ml-4 mt-4 border-l-2 border-[#FF7EB6]/50 pl-4">
+    <div className="ml-2 md:ml-4 mt-4 border-l-2 border-[#FF7EB6]/50 pl-2 md:pl-4">
       <div className="flex items-center mb-2">
         
         <p className="text-sm font-semibold text-white">{comment.author.username}</p>
@@ -166,7 +166,7 @@ const Community = ({ username }) => {
 
       <div className="relative z-10 flex flex-col items-center w-full max-w-6xl space-y-10">
         <motion.h1
-          className="text-center text-5xl md:text-7xl font-extrabold text-white drop-shadow-lg tracking-wider font-mono"
+          className="text-center text-4xl md:text-6xl lg:text-7xl font-extrabold text-white drop-shadow-lg tracking-wider font-mono"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -176,11 +176,12 @@ const Community = ({ username }) => {
 
         <div className="w-full max-w-2xl">
           <h2 className="text-2xl font-bold text-white mb-4">Select a Community</h2>
-          <select 
+          <select
             onChange={(e) => setSelectedCommunity(JSON.parse(e.target.value))}
-            className="bg-[#0B0C10] border border-[#1F2833] rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF7EB6] w-full"
+            className="bg-[#0B0C10] border border-[#1F2833] rounded-lg py-3 pl-5 pr-10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF7EB6] w-full appearance-none"
+            style={{ backgroundImage: "url('data:image/svg+xml;utf8,<svg fill=\"white\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/></svg>')", backgroundRepeat: "no-repeat", backgroundPosition: "right 1rem center", backgroundSize: "1.5rem" }}
           >
-            <option value="">-- Choose a Community --</option>
+            <option className='p-4' value="">-- Choose a Community --</option>
             {communities.map((community) => (
               <option key={community._id} value={JSON.stringify(community)}>
                 {community.name}

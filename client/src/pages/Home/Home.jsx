@@ -161,9 +161,8 @@ export default function Home() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="relative text-center min-h-[500px] flex flex-col items-center justify-center 
-    w-full mb-12 overflow-hidden 
-    bg-cover bg-center"
+        className="relative text-center min-h-[40vh] md:min-h-[500px] flex flex-col items-center justify-center 
+                   w-full mb-12 overflow-hidden bg-cover bg-center"
         style={{ backgroundImage: `url(${NarutoBg})` }}
       >
         {/* Overlay to make text readable */}
@@ -191,7 +190,7 @@ export default function Home() {
       {/* Features Section */}
       <div className="relative mb-10 px-4">
         {/* Cards Grid */}
-        <div className="relative grid grid-cols-1 md:grid-cols-2 z-10">
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 z-10">
           {features.map((item, i) => (
             <motion.div
               key={i}
@@ -199,7 +198,7 @@ export default function Home() {
               initial="hidden"
               animate="visible"
               variants={cardVariants}
-              className="bg-[#0B0C10]/90 border mx-6 mt-6 border-[#1F2833] p-6 rounded-2xl 
+              className="bg-[#0B0C10]/90 border mx-2 md:mx-6 mt-6 border-[#1F2833] p-6 rounded-2xl 
                 shadow-md hover:shadow-pink-500/30 transition transform 
                 hover:-translate-y-1 backdrop-blur-sm"
             >
