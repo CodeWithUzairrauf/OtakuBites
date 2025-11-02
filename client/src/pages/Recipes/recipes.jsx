@@ -34,29 +34,29 @@ const Recipes = () => {
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-[#0B0C10] via-[#1a1a1a] to-[#2A0A14] text-white py-16 px-6 md:px-12 overflow-hidden">
       {/* Title */}
-        <div className="flex justify-center items-center gap-3 mb-12">
-          <motion.h1
-            className="md:text-5xl font-bold text-[#FF7EB6]"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            Anime Recipes
-          </motion.h1>
+      <div className="flex justify-center items-center gap-3 mb-12">
+        <motion.h1
+          className="md:text-5xl font-bold text-[#FF7EB6]"
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Anime Recipes
+        </motion.h1>
 
-          <Link to="/recipes/add">
-            <motion.button
-              className="flex items-center justify-center bg-gradient-to-r from-[#FF7EB6] to-[#FF4D94]
+        <Link to="/recipes/add">
+          <motion.button
+            className="flex items-center justify-center bg-gradient-to-r from-[#FF7EB6] to-[#FF4D94]
                  text-black p-2 rounded-full shadow-lg shadow-pink-500/30
                  hover:shadow-pink-400/50 hover:from-[#ff649f] hover:to-[#ff85b3]
                  transition-all duration-300 border border-pink-200/30"
-              whileHover={{ scale: 1.1, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <CiCirclePlus className="text-3xl drop-shadow-[0_0_5px_rgba(255,126,182,0.8)]" />
-            </motion.button>
-          </Link>
-        </div> 
+            whileHover={{ scale: 1.1, rotate: 5 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <CiCirclePlus className="text-3xl drop-shadow-[0_0_5px_rgba(255,126,182,0.8)]" />
+          </motion.button>
+        </Link>
+      </div>
 
       {/* Pinterest-style Masonry Cards */}
       <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 z-10 relative">
